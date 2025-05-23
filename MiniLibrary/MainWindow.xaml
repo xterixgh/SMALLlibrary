@@ -26,6 +26,17 @@
                 <ComboBoxItem Content="5 ★★★★★"/>
             </ComboBox>
             <Button Content="Добавить" Margin="5" Padding="10,2" Click="AddButton_Click"/>
+
+            
+            <ComboBox x:Name="FilterGenreComboBox" Width="100" Margin="5" SelectedIndex="0">
+                <ComboBoxItem Content="Все жанры"/>
+                <ComboBoxItem Content="Фантастика"/>
+                <ComboBoxItem Content="Детектив"/>
+                <ComboBoxItem Content="Роман"/>
+                <ComboBoxItem Content="Классика"/>
+                <ComboBoxItem Content="Антиутопия"/>
+            </ComboBox>
+            <Button Content="Фильтровать" Margin="5" Padding="10,2" Click="FilterButton_Click"/>
         </StackPanel>
 
         <ListView x:Name="BooksListView" Grid.Row="1" Margin="10" MouseDoubleClick="BooksListView_MouseDoubleClick">

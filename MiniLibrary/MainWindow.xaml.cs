@@ -60,6 +60,24 @@ namespace MiniLibrary
             UpdateStats();
         }
 
+        private void RefreshFilteredBookList(List<Book> filteredBooks)
+        {
+            BooksListView.Items.Clear();
+
+            foreach (var book in filteredBooks)
+            {
+                var item = new ListViewItem();
+                item.Content = $"{book.Title} | {book.Author} | {book.Genre} | ★{book.Rating} | " +
+                             (book.IsRead ? "Прочитано" : "Не прочитано");
+                item.Tag = book;
+                BooksListView.Items.Add(item);
+            }
+
+            TotalBooksText.Text = $"Всего книг: {filteredBooks.Count}";
+            ReadBooksText.Text = $"Прочитано: {filteredBooks.Count(b => b.IsRead)}";
+            AvgRatingText.Text = $"Средний рейтинг: {(filteredBooks.Any() ? filteredBooks.Average(b => b.Rating).ToString("0.0") : "0.0")}";
+        }
+
         private void UpdateStats()
         {
             TotalBooksText.Text = $"Всего книг: {books.Count}";
@@ -125,6 +143,21 @@ namespace MiniLibrary
                 RatingComboBox.SelectedIndex = book.Rating - 1;
                 books.Remove(book);
                 RefreshBookList();
+            }
+        }
+
+        private void FilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedGenre = (FilterGenreComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+
+            if (selectedGenre == "Все жанры")
+            {
+                RefreshBookList();
+            }
+            else
+            {
+                var filteredBooks = books.Where(b => b.Genre == selectedGenre).ToList();
+                RefreshFilteredBookList(filteredBooks);
             }
         }
     }
