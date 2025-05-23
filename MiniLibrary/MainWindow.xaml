@@ -1,0 +1,52 @@
+﻿<Window x:Class="MiniLibrary.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Мини-библиотека" Height="500" Width="800"
+        Icon="/Images/1.jpg">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <TextBox x:Name="TitleTextBox" Width="150" Margin="5" Text="Название"/>
+            <TextBox x:Name="AuthorTextBox" Width="120" Margin="5" Text="Автор"/>
+            <ComboBox x:Name="GenreComboBox" Width="100" Margin="5" SelectedIndex="0">
+                <ComboBoxItem Content="Фантастика"/>
+                <ComboBoxItem Content="Детектив"/>
+                <ComboBoxItem Content="Роман"/>
+            </ComboBox>
+            <ComboBox x:Name="RatingComboBox" Width="80" Margin="5" SelectedIndex="2">
+                <ComboBoxItem Content="1 ★"/>
+                <ComboBoxItem Content="2 ★★"/>
+                <ComboBoxItem Content="3 ★★★"/>
+                <ComboBoxItem Content="4 ★★★★"/>
+                <ComboBoxItem Content="5 ★★★★★"/>
+            </ComboBox>
+            <Button Content="Добавить" Margin="5" Padding="10,2" Click="AddButton_Click"/>
+        </StackPanel>
+
+        <ListView x:Name="BooksListView" Grid.Row="1" Margin="10">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Background="#EEE">
+            <Button Content="Удалить" Margin="10" Padding="10,2" Click="DeleteButton_Click"/>
+            <Button Content="Прочитано/Не прочитано" Margin="10" Padding="10,2" Click="ToggleReadButton_Click"/>
+            <Button Content="Сортировать по автору" Margin="10" Padding="10,2" Click="SortByAuthor_Click"/>
+            <Button Content="Сортировать по рейтингу" Margin="10" Padding="10,2" Click="SortByRating_Click"/>
+
+            <StackPanel Margin="10">
+                <TextBlock x:Name="TotalBooksText"/>
+                <TextBlock x:Name="ReadBooksText"/>
+                <TextBlock x:Name="AvgRatingText"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
