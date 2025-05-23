@@ -1,23 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MiniLibrary
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private List<Book> books = new List<Book>();
@@ -25,8 +14,6 @@ namespace MiniLibrary
         public MainWindow()
         {
             InitializeComponent();
-
-
             books.Add(new Book
             {
                 Title = "Война и мир",
@@ -94,7 +81,6 @@ namespace MiniLibrary
             books.Add(newBook);
             RefreshBookList();
 
-
             TitleTextBox.Text = "";
             AuthorTextBox.Text = "";
         }
@@ -128,6 +114,18 @@ namespace MiniLibrary
             books = books.OrderByDescending(b => b.Rating).ToList();
             RefreshBookList();
         }
+
+        private void BooksListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (BooksListView.SelectedItem is ListViewItem item && item.Tag is Book book)
+            {
+                TitleTextBox.Text = book.Title;
+                AuthorTextBox.Text = book.Author;
+                GenreComboBox.Text = book.Genre;
+                RatingComboBox.SelectedIndex = book.Rating - 1;
+                books.Remove(book);
+                RefreshBookList();
+            }
+        }
     }
 }
-
